@@ -4,8 +4,8 @@ import { Component } from '@angular/core'
     selector:'todo-list-dashboard',
     styleUrls:['todo-list-dashboard.component.scss'],
     template:`
-    <md-toolbar>Todo List</md-toolbar>
-    <todo-list-dialog></todo-list-dialog>
+    <md-toolbar color="primary">Todo List</md-toolbar>
+    <router-outlet></router-outlet>
 `
 
 })

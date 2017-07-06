@@ -1,0 +1,25 @@
+<a  [routerLink]="['/']">Back</a>
+    
+  <h1>Todo List</h1>
+  <md-card>
+  <md-card-content>
+  <md-card-title>All Tasks</md-card-title>
+<md-input-container class="example-full-width">
+  <input mdInput placeholder="Enter new Task" (keyup.enter)=saveNewtask($event.target.value)>
+</md-input-container>
+<md-list>
+ <md-list-item *ngFor="let task of tasks;"><md-card md-line>
+  <md-card-content>
+      <md-radio-group>
+  <md-radio-button value="task.status"></md-radio-button>
+</md-radio-group>
+  <p>{{task.description}}</p>
+  </md-card-content>
+  </md-card></md-list-item>
+</md-list>
+
+
+
+  
+  </md-card-content>
+  </md-card>
