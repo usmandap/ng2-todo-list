@@ -15,7 +15,7 @@ interface Tasks{
 
 })
 
-export class todoListDetailComponent implements OnInit {
+export class todoListDetailComponent {
    
     tasks: Tasks[];
     allTasks:Tasks[];
@@ -23,11 +23,9 @@ export class todoListDetailComponent implements OnInit {
     public description = "test desc";
     
     constructor(private data:todoListDetailDataService){
-        this.tasks= data.tasks;
-        this.allTasks = data.tasks;
-        setTimeout(()=>{
-            this.description = "new test subject";
-        },1200);
+        this.tasks= data.getTodos();
+        this.allTasks = data.getTodos();
+        
     }
 private (task){
    
@@ -80,7 +78,7 @@ console.log("all tasks",this.allTasks);
 }
     
 
-    ngOnInit(): void {
-        throw new Error("Method not implemented.");
-    }
+    // ngOnInit(): void {
+    //     throw new Error("Method not implemented.");
+    // }
 }

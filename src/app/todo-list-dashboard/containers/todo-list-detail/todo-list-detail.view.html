@@ -15,9 +15,8 @@
 <md-list>
  <md-list-item *ngFor="let task of tasks;"><md-card md-line>
   <md-card-content>
-      <md-radio-group >
-  <md-radio-button [value]="task.status">{{task.status}}</md-radio-button>
-</md-radio-group>
+  <md-checkbox [(ngModel)]="task.status">{{task.status}}</md-checkbox>
+
   <p>{{task.description}}</p>
   <div class="button-row">
   <button md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>    

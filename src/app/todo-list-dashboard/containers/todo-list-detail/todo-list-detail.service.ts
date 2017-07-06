@@ -10,7 +10,9 @@ import { Injectable} from '@angular/core'
 
 @Injectable()
 export class todoListDetailDataService{
-    tasks:any[] =[{
+     constructor(){}
+     getTodos(){
+    return [{
     id:0,
     description:"Go to Gym",
     status:false
@@ -25,5 +27,5 @@ export class todoListDetailDataService{
     description:"Airport",
     status:true
 }];
-    constructor(){}
+     }
 }
