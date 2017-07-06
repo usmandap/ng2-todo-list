@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
 import { todoListDashboardModule } from './todo-list-dashboard/todo-list-dashboard.module'
 
 import { AppComponent } from './app.component';

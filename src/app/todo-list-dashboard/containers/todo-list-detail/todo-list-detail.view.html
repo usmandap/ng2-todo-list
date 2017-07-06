@@ -1,22 +1,32 @@
 <a  [routerLink]="['/']">Back</a>
     
   <h1>Todo List</h1>
-  <md-card>
+  <md-card color="primary">
   <md-card-content>
   <md-card-title>All Tasks</md-card-title>
 <md-input-container class="example-full-width">
-  <input mdInput placeholder="Enter new Task" (keyup.enter)=saveNewtask($event.target.value)>
+  <input mdInput placeholder="Enter new Task" [(ngModel)]="description" (keyup.enter)=saveNewtask(description)>
 </md-input-container>
+<md-tab-group (click)=showTabData($event,$event.target.outerText)>
+  <md-tab label="All"></md-tab>
+  <md-tab label="Not Completed"></md-tab>
+  <md-tab label="Completed"></md-tab>
+</md-tab-group>
 <md-list>
  <md-list-item *ngFor="let task of tasks;"><md-card md-line>
   <md-card-content>
-      <md-radio-group>
-  <md-radio-button value="task.status"></md-radio-button>
+      <md-radio-group >
+  <md-radio-button [value]="task.status">{{task.status}}</md-radio-button>
 </md-radio-group>
   <p>{{task.description}}</p>
+  <div class="button-row">
+  <button md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>    
+  </div>
   </md-card-content>
   </md-card></md-list-item>
 </md-list>
+<p>{{allTasks.length}} Total tasks</p>
+
 
 
 

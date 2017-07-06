@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+import { todoListDetailDataService } from './containers/todo-list-detail/todo-list-detail.service'
 
 import { todoListDashboardComponent } from './containers/todo-list-dashboard/todo-list-dashboard.component'
 import { todoListDetailComponent } from './containers/todo-list-detail/todo-list-detail.component'
@@ -17,8 +20,10 @@ import { routing } from './todo-list.routes';
     imports:[
         CommonModule,
         routing,
+        FormsModule,
         todoListCustomMaterialModule
         ],
+        providers:[todoListDetailDataService],
         exports:[
             todoListDashboardComponent,
             todoListDetailComponent,
