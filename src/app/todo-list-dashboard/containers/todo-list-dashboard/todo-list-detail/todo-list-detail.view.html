@@ -15,11 +15,11 @@
 <md-list>
  <md-list-item *ngFor="let task of tasks;"><md-card md-line>
   <md-card-content>
-  <md-checkbox [(ngModel)]="task.status">{{task.status}}</md-checkbox>
+  <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task)></md-checkbox>
 
-  <p>{{task.description}}</p>
+  <p class="item text-padding">{{task.description}}</p>
   <div class="button-row">
-  <button md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>    
+  <button class="item" md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>    
   </div>
   </md-card-content>
   </md-card></md-list-item>
