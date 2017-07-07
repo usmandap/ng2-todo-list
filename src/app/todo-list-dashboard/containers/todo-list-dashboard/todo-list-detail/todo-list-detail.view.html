@@ -1,35 +1,37 @@
-<a  [routerLink]="['/']">Back</a>
-    
-  <h1>Todo List</h1>
-  <md-card color="primary">
+<a [routerLink]="['/']">Back</a>
+
+<h1>Todo List</h1>
+<md-card color="primary">
   <md-card-content>
-  <md-card-title>All Tasks</md-card-title>
-<md-input-container class="example-full-width">
-  <input mdInput placeholder="Enter new Task" [(ngModel)]="description" (keyup.enter)=saveNewtask(description)>
-</md-input-container>
-<md-tab-group (click)=showTabData($event,$event.target.outerText)>
-  <md-tab label="All"></md-tab>
-  <md-tab label="Not Completed"></md-tab>
-  <md-tab label="Completed"></md-tab>
-</md-tab-group>
-<md-list>
- <md-list-item *ngFor="let task of tasks;"><md-card md-line>
-  <md-card-content>
-  <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task)></md-checkbox>
+    <md-card-title>All Tasks</md-card-title>
+    <md-input-container class="example-full-width">
+      <input mdInput placeholder="Enter new Task" [(ngModel)]="description" (keyup.enter)=saveNewtask(description)>
+    </md-input-container>
+    <md-tab-group (click)=showTabData($event,$event.target.outerText)>
+      <md-tab label="All"></md-tab>
+      <md-tab label="Not Completed"></md-tab>
+      <md-tab label="Completed"></md-tab>
+    </md-tab-group>
+    <md-list>
+      <md-list-item *ngFor="let task of tasks;">
+        <md-card md-line>
+          <md-card-content>
+            <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task)></md-checkbox>
 
-  <p class="item text-padding">{{task.description}}</p>
-  <div class="button-row">
-  <button class="item" md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>    
-  </div>
+            <p class="item text-padding">{{task.description}}</p>
+            <div class="button-row">
+              <button class="item" md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>
+            </div>
+          </md-card-content>
+        </md-card>
+      </md-list-item>
+    </md-list>
+    <p [hidden]="remainingTasks == 0">{{remainingTasks}} Task<span *ngIf="remainingTasks > 1">s</span> left</p>
+    <p *ngIf="remainingTasks == 0">No Remaining Tasks</p>
+
+
+
+
+
   </md-card-content>
-  </md-card></md-list-item>
-</md-list>
-<p [hidden]="remainingTasks == 0">{{remainingTasks}} Task<span *ngIf="remainingTasks > 1">s</span> left</p>
-<p *ngIf="remainingTasks == 0">No Remaining Tasks</p>
-
-
-
-
-  
-  </md-card-content>
-  </md-card>
+</md-card>

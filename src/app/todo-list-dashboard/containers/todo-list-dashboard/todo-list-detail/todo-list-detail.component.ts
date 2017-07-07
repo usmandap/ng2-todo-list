@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { todoListDetailDataService } from './todo-list-detail.service'
 
 interface Tasks {
@@ -15,21 +15,28 @@ interface Tasks {
 
 })
 
-export class todoListDetailComponent implements OnInit{
+export class todoListDetailComponent implements OnInit {
     tasks: Tasks[];
     allTasks: Tasks[];
     tabStatus: boolean = false;
     allTab: boolean = true;
-    remainingTasks:number;
+    remainingTasks: number;
     hero;
     public description;
 
     constructor(private data: todoListDetailDataService) {
-        
+
     }
+    /**
+  * @author Usman Hussain
+  * This functions saves new task via user input.
+  * Take user input and push into Tasks array
+  * @param task {String}
+  * @return void
+  */
     saveNewtask(task) {
-        
-        this.description = '';    
+
+        this.description = '';
         var data = {
             description: task,
             id: this.tasks.length,
@@ -42,9 +49,17 @@ export class todoListDetailComponent implements OnInit{
             this.tasks.push(data)
             this.allTasks.push(data);
         }
-        this.remainingTasks =  this.getUnfinishedTasks();
-        
+        this.remainingTasks = this.getUnfinishedTasks();
+
     }
+    /**
+  * @author Usman Hussain
+  * This functions finds the activated tab via tab event.
+  * Take event and current activated tab to render view according to it.
+  * @param event {Object}
+  * @param currentTab {String}
+  * @return void
+  */
     showTabData(event, currentTab) {
         console.log('tab function hit');
         var filteredTasks;
@@ -66,19 +81,26 @@ export class todoListDetailComponent implements OnInit{
             this.tasks = this.allTasks;
         }
     }
+    /**
+   * @author Usman Hussain
+   * This functions delete task via delete call.
+   * Take the task object needs to be deleted from tasks array and splice it.
+   * @param task {Object}
+   * @return void
+   */
     deleteTask(task) {
         this.tasks.splice(this.tasks.indexOf(task), 1);
         if (this.allTasks.includes(task)) {
             this.allTasks.splice(this.allTasks.indexOf(task), 1);
         }
-        this.remainingTasks =  this.getUnfinishedTasks();
+        this.remainingTasks = this.getUnfinishedTasks();
     }
     taskStatusUpdate(task) {
         for (let newTask in this.allTasks) {
             if (this.allTasks[newTask].id == task.id) {
                 this.allTasks[newTask].status = task.status;
-         this.remainingTasks =  this.getUnfinishedTasks();    
-        }
+                this.remainingTasks = this.getUnfinishedTasks();
+            }
         }
         if (this.allTab) {
             return;
@@ -88,9 +110,15 @@ export class todoListDetailComponent implements OnInit{
         }
         else if (this.tabStatus && !task.status) {
             this.tasks = this.tasks.filter((currentTask) => currentTask.status)
-        }       
+        }
     }
-    getUnfinishedTasks(){
+    /**
+   * @author Usman Hussain
+   * This functions findout remaining tasks needs to be completed soon via traversing tasks array.
+   * Simple function doesn't take any param just put some code here to prevent myself from DRY
+   * @return void
+   */
+    getUnfinishedTasks() {
         var totalRemainingtasks = 0;
         for (let task in this.allTasks) {
             if (!this.allTasks[task].status) {
@@ -105,7 +133,7 @@ export class todoListDetailComponent implements OnInit{
         console.log('on init');
         this.tasks = this.data.getTodos();
         this.allTasks = this.data.getTodos();
-        this.remainingTasks =  this.getUnfinishedTasks();
-       
+        this.remainingTasks = this.getUnfinishedTasks();
+
     }
 }

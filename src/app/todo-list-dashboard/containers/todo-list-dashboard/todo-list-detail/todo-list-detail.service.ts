@@ -11,6 +11,12 @@ import { Injectable } from '@angular/core'
 @Injectable()
 export class todoListDetailDataService {
     constructor() { }
+    /**
+ * @author Usman Hussain
+ * This functions provides todo-list-detail-component all initial data.
+ * Simple service function to provide data to component
+ * @return [{Object}]
+ */
     getTodos() {
         return [{
             id: 0,

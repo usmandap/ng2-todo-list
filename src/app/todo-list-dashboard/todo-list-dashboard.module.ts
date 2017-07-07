@@ -12,16 +12,16 @@ import { todoListCustomMaterialModule } from './todo-list-custom-material.module
 import { routing } from './todo-list.routes';
 
 @NgModule({
-    declarations: [
-        todoListDashboardComponent,
-        todoListDetailComponent,
-        todoListInitialComponent
-    ],
     imports: [
         CommonModule,
         routing,
         FormsModule,
         todoListCustomMaterialModule
+    ],
+    declarations: [
+        todoListDashboardComponent,
+        todoListDetailComponent,
+        todoListInitialComponent
     ],
     providers: [todoListDetailDataService],
     exports: [
