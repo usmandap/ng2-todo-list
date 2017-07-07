@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core'
 
 
-// interface Tasks{
-//     id:number,
-//     description:string,
-//     status:boolean
-
-// }
-
 @Injectable()
 export class todoListDetailDataService {
     constructor() { }
