@@ -20,15 +20,16 @@ export class todoListDetailComponent implements OnInit{
     allTasks: Tasks[];
     tabStatus: boolean = false;
     allTab: boolean = true;
+    remainingTasks:number;
     hero;
     public description;
 
     constructor(private data: todoListDetailDataService) {
-        this.tasks = data.getTodos();
-        this.allTasks = data.getTodos();
+        
     }
     saveNewtask(task) {
-        this.description = '';
+        
+        this.description = '';    
         var data = {
             description: task,
             id: this.tasks.length,
@@ -41,9 +42,11 @@ export class todoListDetailComponent implements OnInit{
             this.tasks.push(data)
             this.allTasks.push(data);
         }
+        this.remainingTasks =  this.getUnfinishedTasks();
+        
     }
-
     showTabData(event, currentTab) {
+        console.log('tab function hit');
         var filteredTasks;
         this.tasks = this.allTasks;
         if (currentTab == "Not Completed") {
@@ -68,12 +71,14 @@ export class todoListDetailComponent implements OnInit{
         if (this.allTasks.includes(task)) {
             this.allTasks.splice(this.allTasks.indexOf(task), 1);
         }
+        this.remainingTasks =  this.getUnfinishedTasks();
     }
     taskStatusUpdate(task) {
         for (let newTask in this.allTasks) {
             if (this.allTasks[newTask].id == task.id) {
                 this.allTasks[newTask].status = task.status;
-            }
+         this.remainingTasks =  this.getUnfinishedTasks();    
+        }
         }
         if (this.allTab) {
             return;
@@ -83,11 +88,24 @@ export class todoListDetailComponent implements OnInit{
         }
         else if (this.tabStatus && !task.status) {
             this.tasks = this.tasks.filter((currentTask) => currentTask.status)
-        }
+        }       
     }
-
-
+    getUnfinishedTasks(){
+        var totalRemainingtasks = 0;
+        for (let task in this.allTasks) {
+            if (!this.allTasks[task].status) {
+                console.log('true');
+                totalRemainingtasks++
+            }
+        }
+        console.log(totalRemainingtasks);
+        return totalRemainingtasks;
+    }
     ngOnInit() {
         console.log('on init');
+        this.tasks = this.data.getTodos();
+        this.allTasks = this.data.getTodos();
+        this.remainingTasks =  this.getUnfinishedTasks();
+       
     }
 }

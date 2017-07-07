@@ -24,7 +24,8 @@
   </md-card-content>
   </md-card></md-list-item>
 </md-list>
-<p>{{allTasks.length}} Total tasks</p>
+<p [hidden]="remainingTasks == 0">{{remainingTasks}} Task<span *ngIf="remainingTasks > 1">s</span> left</p>
+<p *ngIf="remainingTasks == 0">No Remaining Tasks</p>
 
 
 
