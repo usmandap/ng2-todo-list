@@ -1,9 +1,16 @@
 import { Injectable } from '@angular/core'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+
 
 
 @Injectable()
 export class todoListDetailDataService {
-    constructor() { }
+        $items: FirebaseListObservable<any[]>;
+
+    constructor(private db: AngularFireDatabase) { 
+    
+
+    }
     /**
  * @author Usman Hussain
  * This functions provides todo-list-detail-component all initial data.
@@ -27,4 +34,13 @@ export class todoListDetailDataService {
             status: true
         }];
     }
+
+    fetchItems() {
+    this.$items = this.db.list('tasks');
+        //   this.$items.push({description: "test",
+        //     id: 3,
+        //     status: false})
+    return this.$items;
+    
+  }
 }

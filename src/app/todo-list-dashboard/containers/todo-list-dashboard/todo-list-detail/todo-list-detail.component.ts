@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { todoListDetailDataService } from './todo-list-detail.service'
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+
 
 interface Tasks {
     id: number,
@@ -19,14 +21,20 @@ export class todoListDetailComponent implements OnInit {
     tasks: Tasks[];
     allTasks: Tasks[];
     tabStatus: boolean = false;
+    firstInit:boolean = true
     allTab: boolean = true;
     remainingTasks: number;
     hero;
     public description;
+    $tasks: FirebaseListObservable<any[]>;
 
     constructor(private data: todoListDetailDataService) {
 
     }
+
+
+
+
     /**
   * @author Usman Hussain
   * This functions saves new task via user input.
@@ -42,13 +50,14 @@ export class todoListDetailComponent implements OnInit {
             id: this.tasks.length,
             status: false
         }
-        if (this.tabStatus) {
-            this.allTasks.push(data)
-        }
-        else {
-            this.tasks.push(data)
-            this.allTasks.push(data);
-        }
+        // if (this.tabStatus) {
+        //     this.allTasks.push(data)
+        // }
+        // else {
+        //     this.tasks.push(data)
+        //     this.allTasks.push(data);
+        // }
+        this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
 
     }
@@ -89,6 +98,7 @@ export class todoListDetailComponent implements OnInit {
    * @return void
    */
     deleteTask(task) {
+        this.$tasks.remove(task);
         this.tasks.splice(this.tasks.indexOf(task), 1);
         if (this.allTasks.includes(task)) {
             this.allTasks.splice(this.allTasks.indexOf(task), 1);
@@ -96,10 +106,13 @@ export class todoListDetailComponent implements OnInit {
         this.remainingTasks = this.getUnfinishedTasks();
     }
     taskStatusUpdate(task) {
+        console.log(task.$key);
+        this.$tasks.update(task.$key,task);
         for (let newTask in this.allTasks) {
             if (this.allTasks[newTask].id == task.id) {
                 this.allTasks[newTask].status = task.status;
                 this.remainingTasks = this.getUnfinishedTasks();
+                break;
             }
         }
         if (this.allTab) {
@@ -131,9 +144,16 @@ export class todoListDetailComponent implements OnInit {
     }
     ngOnInit() {
         console.log('on init');
-        this.tasks = this.data.getTodos();
-        this.allTasks = this.data.getTodos();
-        this.remainingTasks = this.getUnfinishedTasks();
+        this.data.fetchItems().subscribe((todoitems) => {
+            console.log("items",todoitems);
+            if(this.firstInit){
+                this.firstInit = false;
+this.tasks = todoitems;
+            this.allTasks = todoitems;
+            }
+            
+         });
+         this.$tasks = this.data.fetchItems();
 
     }
 }
