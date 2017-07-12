@@ -25,9 +25,7 @@ import { routing } from './todo-list.routes';
     ],
     providers: [todoListDetailDataService],
     exports: [
-        todoListDashboardComponent,
-        todoListDetailComponent,
-        todoListInitialComponent
+        todoListDashboardComponent
     ]
 })
 
