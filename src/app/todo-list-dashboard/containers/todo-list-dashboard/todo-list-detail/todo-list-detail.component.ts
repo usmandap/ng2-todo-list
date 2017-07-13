@@ -36,12 +36,12 @@ export class todoListDetailComponent implements OnInit {
 
 
     /**
-  * @author Usman Hussain
-  * This functions saves new task via user input.
-  * Take user input and push into Tasks array
-  * @param task {String}
-  * @return void
-  */
+     * @author Usman Hussain
+    * This functions saves new task via user input.
+    * Take user input and push into Tasks array
+    * @param task {String}
+    * @return void
+    */
     saveNewtask(task) {
 
         this.description = '';
@@ -55,24 +55,25 @@ export class todoListDetailComponent implements OnInit {
 
     }
     /**
-  * @author Usman Hussain
-  * This functions finds the activated tab via tab event.
-  * Take event and current activated tab to render view according to it.
-  * @param event {Object}
-  * @param currentTab {String}
-  * @return void
-  */
+     * @author Usman Hussain
+    * This functions finds the activated tab via tab event.
+    * Take event and current activated tab to render view according to it.
+    * @param event {Object}
+    * @param currentTab {String}
+    * @return void
+    */
     showTabData(event, currentTab) {
         console.log('tab function hit');
         var filteredTasks;
+        // TODO: Use Pipe Instead to filter
         this.tasks = this.allTasks;
-        if (currentTab == "Not Completed") {
+        if (currentTab === 'Not Completed') {
             this.tabStatus = false;
             this.allTab = false;
             filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
             this.tasks = filteredTasks;
         }
-        else if (currentTab == "Completed") {
+        else if (currentTab == 'Completed') {
             this.tabStatus = true;
             this.allTab = false;
             filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
@@ -91,6 +92,7 @@ export class todoListDetailComponent implements OnInit {
    * @return void
    */
     deleteTask(task) {
+        // TODO: Use promise here to delete after removing from firebase
         this.$tasks.remove(task);
         if(this.tabStatus && !this.allTab){
             this.tasks.splice(this.tasks.indexOf(task), 1);
@@ -116,7 +118,13 @@ export class todoListDetailComponent implements OnInit {
    * @return void
    */
     getUnfinishedTasks() {
-        var totalRemainingtasks = 0;
+        let totalRemainingtasks = 0;
+        // TODO: Use Array.filter
+
+        /*
+            this.allTasks.filter().length
+        */
+
         for (let task in this.allTasks) {
             if (!this.allTasks[task].status) {
                 console.log('true');
@@ -126,33 +134,39 @@ export class todoListDetailComponent implements OnInit {
         console.log(totalRemainingtasks);
         return totalRemainingtasks;
     }
+
+    getTodos() {
+        this.$tasks = this.data.fetchItems();       //  assigning the data first time.
+
+        // putting a handler to listen for changes in todos
+        this.data.fetchItems().subscribe((todoitems) => {
+            let filteredTasks;
+            console.log('items', todoitems);
+            this.allTasks = todoitems;
+            if (this.firstInit){
+                this.firstInit = false;
+                this.tasks = todoitems;
+            }
+            else if (!this.tabStatus || this.allTab) {
+                this.tasks = todoitems
+            }
+            if (this.tabStatus && !this.allTab){
+                filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
+                this.tasks = filteredTasks;
+
+            }
+            else if (!this.tabStatus && !this.allTab){
+                filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
+                this.tasks = filteredTasks;
+
+            }
+            this.remainingTasks = this.getUnfinishedTasks();
+
+         });
+    }
+
     ngOnInit() {
         console.log('on init');
-        this.data.fetchItems().subscribe((todoitems) => {
-            var filteredTasks;
-            console.log("items",todoitems);
-            this.allTasks = todoitems;
-            if(this.firstInit){
-            this.firstInit = false;
-            this.tasks = todoitems;
-        }
-        else if (!this.tabStatus || this.allTab) {
-            this.tasks = todoitems
-        }    
-         if(this.tabStatus && !this.allTab){
-            filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
-            this.tasks = filteredTasks;
-
-        }
-        else if(!this.tabStatus && !this.allTab){
-            filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
-            this.tasks = filteredTasks;
-
-        }   
-        this.remainingTasks = this.getUnfinishedTasks();
-            
-         });
-         this.$tasks = this.data.fetchItems();
-
+        this.getTodos();
     }
 }

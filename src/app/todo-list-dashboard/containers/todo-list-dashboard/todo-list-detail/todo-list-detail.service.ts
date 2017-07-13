@@ -4,6 +4,7 @@ import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/databa
 
 
 @Injectable()
+// TODO: Rename to TodoService
 export class todoListDetailDataService {
         $items: FirebaseListObservable<any[]>;
 
