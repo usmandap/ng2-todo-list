@@ -50,13 +50,10 @@ export class todoListDetailComponent implements OnInit {
             id: this.tasks.length,
             status: false
         }
-        if (this.tabStatus) {
-            this.allTasks.push(data)
-        }
-        else {
-            this.tasks.push(data)
-            this.allTasks.push(data);
-        }
+        // if (!this.tabStatus) {
+        //     this.tasks.push(data)
+        // }
+        // this.allTasks.push(data)
         this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
 
@@ -99,22 +96,25 @@ export class todoListDetailComponent implements OnInit {
    */
     deleteTask(task) {
         this.$tasks.remove(task);
-        this.tasks.splice(this.tasks.indexOf(task), 1);
-        if (this.allTasks.includes(task)) {
-            this.allTasks.splice(this.allTasks.indexOf(task), 1);
+        if(this.tabStatus && !this.allTab){
+            this.tasks.splice(this.tasks.indexOf(task), 1);
         }
-        this.remainingTasks = this.getUnfinishedTasks();
+        // this.tasks.splice(this.tasks.indexOf(task), 1);
+        // if (this.allTasks.includes(task)) {
+        //     this.allTasks.splice(this.allTasks.indexOf(task), 1);
+        // }
+        //this.remainingTasks = this.getUnfinishedTasks();
     }
     taskStatusUpdate(task) {
         console.log(task.$key);
         this.$tasks.update(task.$key,task);
-        for (let newTask in this.allTasks) {
-            if (this.allTasks[newTask].id == task.id) {
-                this.allTasks[newTask].status = task.status;
-                this.remainingTasks = this.getUnfinishedTasks();
-                break;
-            }
-        }
+        // for (let newTask in this.allTasks) {
+        //     if (this.allTasks[newTask].id == task.id) {
+        //         this.allTasks[newTask].status = task.status;
+        //         this.remainingTasks = this.getUnfinishedTasks();
+        //         break;
+        //     }
+        // }
         if (this.allTab) {
             return;
         }
@@ -145,12 +145,29 @@ export class todoListDetailComponent implements OnInit {
     ngOnInit() {
         console.log('on init');
         this.data.fetchItems().subscribe((todoitems) => {
+            var filteredTasks;
             console.log("items",todoitems);
-            if(this.firstInit){
-                this.firstInit = false;
-            this.tasks = todoitems;
             this.allTasks = todoitems;
-            }
+            if(this.firstInit){
+            this.firstInit = false;
+            this.tasks = todoitems;
+        }
+        else if (!this.tabStatus || this.allTab) {
+            this.tasks = todoitems
+        }
+         
+         if(this.tabStatus && !this.allTab){
+            filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
+            this.tasks = filteredTasks;
+
+        }
+        else if(!this.tabStatus && !this.allTab){
+            filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
+            this.tasks = filteredTasks;
+
+        }
+        
+        this.remainingTasks = this.getUnfinishedTasks();
             
          });
          this.$tasks = this.data.fetchItems();
