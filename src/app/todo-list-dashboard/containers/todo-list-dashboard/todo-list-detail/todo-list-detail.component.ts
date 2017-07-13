@@ -50,10 +50,6 @@ export class todoListDetailComponent implements OnInit {
             id: this.tasks.length,
             status: false
         }
-        // if (!this.tabStatus) {
-        //     this.tasks.push(data)
-        // }
-        // this.allTasks.push(data)
         this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
 
@@ -99,31 +95,19 @@ export class todoListDetailComponent implements OnInit {
         if(this.tabStatus && !this.allTab){
             this.tasks.splice(this.tasks.indexOf(task), 1);
         }
-        // this.tasks.splice(this.tasks.indexOf(task), 1);
-        // if (this.allTasks.includes(task)) {
-        //     this.allTasks.splice(this.allTasks.indexOf(task), 1);
-        // }
-        //this.remainingTasks = this.getUnfinishedTasks();
     }
     taskStatusUpdate(task) {
         console.log(task.$key);
         this.$tasks.update(task.$key,task);
-        // for (let newTask in this.allTasks) {
-        //     if (this.allTasks[newTask].id == task.id) {
-        //         this.allTasks[newTask].status = task.status;
-        //         this.remainingTasks = this.getUnfinishedTasks();
-        //         break;
-        //     }
+        // if (this.allTab) {
+        //     return;
         // }
-        if (this.allTab) {
-            return;
-        }
-        else if (!this.tabStatus && task.status) {
-            this.tasks = this.tasks.filter((currentTask) => !currentTask.status)
-        }
-        else if (this.tabStatus && !task.status) {
-            this.tasks = this.tasks.filter((currentTask) => currentTask.status)
-        }
+        // else if (!this.tabStatus && task.status) {
+        //     this.tasks = this.tasks.filter((currentTask) => !currentTask.status)
+        // }
+        // else if (this.tabStatus && !task.status) {
+        //     this.tasks = this.tasks.filter((currentTask) => currentTask.status)
+        // }
     }
     /**
    * @author Usman Hussain
@@ -154,8 +138,7 @@ export class todoListDetailComponent implements OnInit {
         }
         else if (!this.tabStatus || this.allTab) {
             this.tasks = todoitems
-        }
-         
+        }    
          if(this.tabStatus && !this.allTab){
             filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
             this.tasks = filteredTasks;
@@ -165,8 +148,7 @@ export class todoListDetailComponent implements OnInit {
             filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
             this.tasks = filteredTasks;
 
-        }
-        
+        }   
         this.remainingTasks = this.getUnfinishedTasks();
             
          });
