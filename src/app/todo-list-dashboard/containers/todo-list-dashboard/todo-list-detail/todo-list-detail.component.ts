@@ -50,13 +50,13 @@ export class todoListDetailComponent implements OnInit {
             id: this.tasks.length,
             status: false
         }
-        // if (this.tabStatus) {
-        //     this.allTasks.push(data)
-        // }
-        // else {
-        //     this.tasks.push(data)
-        //     this.allTasks.push(data);
-        // }
+        if (this.tabStatus) {
+            this.allTasks.push(data)
+        }
+        else {
+            this.tasks.push(data)
+            this.allTasks.push(data);
+        }
         this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
 
@@ -148,7 +148,7 @@ export class todoListDetailComponent implements OnInit {
             console.log("items",todoitems);
             if(this.firstInit){
                 this.firstInit = false;
-this.tasks = todoitems;
+            this.tasks = todoitems;
             this.allTasks = todoitems;
             }
             
