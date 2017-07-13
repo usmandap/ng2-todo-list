@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { todoListDetailDataService } from './todo-list-detail.service'
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { TodoService } from './todo-list-detail.service'
+import { FirebaseListObservable } from 'angularfire2/database';
 
 
-interface Tasks {
+interface Task {
     id: number,
     description: string,
     status: boolean
@@ -17,72 +17,32 @@ interface Tasks {
 
 })
 
-export class todoListDetailComponent implements OnInit {
-    tasks: Tasks[];
-    allTasks: Tasks[];
-    tabStatus: boolean = false;
-    firstInit:boolean = true
-    allTab: boolean = true;
+export class TodoListDetailComponent implements OnInit {
+    tasks: Task[];
+    allTasks: Task[];
     remainingTasks: number;
     hero;
     public description;
-    $tasks: FirebaseListObservable<any[]>;
+    public selectedIndex;
+    $tasks: FirebaseListObservable<Task[]>;
 
-    constructor(private data: todoListDetailDataService) {
-
-    }
-
-
-
-
+    constructor(private todoitems: TodoService) {}
     /**
-     * @author Usman Hussain
-    * This functions saves new task via user input.
-    * Take user input and push into Tasks array
-    * @param task {String}
-    * @return void
-    */
+  * @author Usman Hussain
+  * This functions saves new task via user input.
+  * Take user input and push into Tasks array
+  * @param task {String}
+  * @return void
+  */
     saveNewtask(task) {
-
         this.description = '';
-        var data = {
+        const data = {
             description: task,
             id: this.tasks.length,
             status: false
         }
         this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
-
-    }
-    /**
-     * @author Usman Hussain
-    * This functions finds the activated tab via tab event.
-    * Take event and current activated tab to render view according to it.
-    * @param event {Object}
-    * @param currentTab {String}
-    * @return void
-    */
-    showTabData(event, currentTab) {
-        console.log('tab function hit');
-        var filteredTasks;
-        // TODO: Use Pipe Instead to filter
-        this.tasks = this.allTasks;
-        if (currentTab === 'Not Completed') {
-            this.tabStatus = false;
-            this.allTab = false;
-            filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
-            this.tasks = filteredTasks;
-        }
-        else if (currentTab == 'Completed') {
-            this.tabStatus = true;
-            this.allTab = false;
-            filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
-            this.tasks = filteredTasks;
-        }
-        else {
-            this.allTab = true;
-            this.tasks = this.allTasks;
-        }
     }
     /**
    * @author Usman Hussain
@@ -92,24 +52,13 @@ export class todoListDetailComponent implements OnInit {
    * @return void
    */
     deleteTask(task) {
-        // TODO: Use promise here to delete after removing from firebase
         this.$tasks.remove(task);
-        if(this.tabStatus && !this.allTab){
-            this.tasks.splice(this.tasks.indexOf(task), 1);
-        }
+        this.remainingTasks = this.getUnfinishedTasks();
     }
     taskStatusUpdate(task) {
         console.log(task.$key);
-        this.$tasks.update(task.$key,task);
-        // if (this.allTab) {
-        //     return;
-        // }
-        // else if (!this.tabStatus && task.status) {
-        //     this.tasks = this.tasks.filter((currentTask) => !currentTask.status)
-        // }
-        // else if (this.tabStatus && !task.status) {
-        //     this.tasks = this.tasks.filter((currentTask) => currentTask.status)
-        // }
+        this.$tasks.update(task.$key , task);
+        this.remainingTasks = this.getUnfinishedTasks();
     }
     /**
    * @author Usman Hussain
@@ -118,55 +67,18 @@ export class todoListDetailComponent implements OnInit {
    * @return void
    */
     getUnfinishedTasks() {
-        let totalRemainingtasks = 0;
-        // TODO: Use Array.filter
-
-        /*
-            this.allTasks.filter().length
-        */
-
-        for (let task in this.allTasks) {
-            if (!this.allTasks[task].status) {
-                console.log('true');
-                totalRemainingtasks++
-            }
-        }
-        console.log(totalRemainingtasks);
-        return totalRemainingtasks;
+        return this.allTasks.filter((task) => !task.status).length;
     }
-
-    getTodos() {
-        this.$tasks = this.data.fetchItems();       //  assigning the data first time.
-
-        // putting a handler to listen for changes in todos
-        this.data.fetchItems().subscribe((todoitems) => {
-            let filteredTasks;
+    ngOnInit() {
+     this.selectedIndex = 0;
+        console.log('on init');
+        this.todoitems.fetchItems().subscribe((todoitems) => {
             console.log('items', todoitems);
             this.allTasks = todoitems;
-            if (this.firstInit){
-                this.firstInit = false;
-                this.tasks = todoitems;
-            }
-            else if (!this.tabStatus || this.allTab) {
-                this.tasks = todoitems
-            }
-            if (this.tabStatus && !this.allTab){
-                filteredTasks = this.tasks.filter((currentTask) => currentTask.status)
-                this.tasks = filteredTasks;
-
-            }
-            else if (!this.tabStatus && !this.allTab){
-                filteredTasks = this.tasks.filter((currentTask) => !currentTask.status)
-                this.tasks = filteredTasks;
-
-            }
+            this.tasks = todoitems;
             this.remainingTasks = this.getUnfinishedTasks();
+             });
+         this.$tasks = this.todoitems.fetchItems();
 
-         });
-    }
-
-    ngOnInit() {
-        console.log('on init');
-        this.getTodos();
     }
 }

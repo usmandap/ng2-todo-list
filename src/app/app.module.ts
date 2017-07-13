@@ -7,7 +7,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/todo-list-environment';
 
-import { todoListDashboardModule } from './todo-list-dashboard/todo-list-dashboard.module'
+import { TodoListDashboardModule } from './todo-list-dashboard/todo-list-dashboard.module'
 
 import { AppComponent } from './app.component';
 
@@ -21,7 +21,7 @@ import { AppComponent } from './app.component';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase, 'todo-list'),
     AngularFireDatabaseModule,
-    todoListDashboardModule
+    TodoListDashboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
