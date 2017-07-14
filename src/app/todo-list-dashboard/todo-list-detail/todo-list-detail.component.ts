@@ -7,7 +7,6 @@ interface Task {
     id: number,
     description: string,
     status: boolean
-
 }
 
 @Component({
@@ -19,14 +18,12 @@ interface Task {
 
 export class TodoListDetailComponent implements OnInit {
     tasks: Task[];
-    allTasks: Task[];
     remainingTasks: number;
-    hero;
     public description;
     public selectedIndex;
     $tasks: FirebaseListObservable<Task[]>;
 
-    constructor(private todoitems: TodoService) {}
+    constructor(private todoitems: TodoService) { }
     /**
   * @author Usman Hussain
   * This functions saves new task via user input.
@@ -55,9 +52,15 @@ export class TodoListDetailComponent implements OnInit {
         this.$tasks.remove(task);
         this.remainingTasks = this.getUnfinishedTasks();
     }
+    /**
+   * @author Usman Hussain
+   * This functions update task status via checkbox input.
+   * Simple function takes current task and update its status
+   * @param task {Object}
+   * @return void
+   */
     taskStatusUpdate(task) {
-        console.log(task.$key);
-        this.$tasks.update(task.$key , task);
+        this.$tasks.update(task.$key, task);
         this.remainingTasks = this.getUnfinishedTasks();
     }
     /**
@@ -67,18 +70,16 @@ export class TodoListDetailComponent implements OnInit {
    * @return void
    */
     getUnfinishedTasks() {
-        return this.allTasks.filter((task) => !task.status).length;
+        return this.tasks.filter((task) => !task.status).length;
     }
     ngOnInit() {
-     this.selectedIndex = 0;
-        console.log('on init');
+        this.selectedIndex = 0;
         this.todoitems.fetchItems().subscribe((todoitems) => {
             console.log('items', todoitems);
-            this.allTasks = todoitems;
             this.tasks = todoitems;
             this.remainingTasks = this.getUnfinishedTasks();
-             });
-         this.$tasks = this.todoitems.fetchItems();
+        });
+        this.$tasks = this.todoitems.fetchItems();
 
     }
 }

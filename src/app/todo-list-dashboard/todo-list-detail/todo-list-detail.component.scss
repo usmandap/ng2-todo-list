@@ -1,0 +1,33 @@
+a {
+    color: white;
+    padding-top: 2%;
+    padding-left: 1%;
+    display: block;
+}
+.mat-input-container {
+    display: block
+}
+.item { 
+ display: inline-block;
+}
+.button-row {
+ display: inline-block;
+ float: right;
+
+}
+.text-padding{
+    padding-left: 30px;
+}
+md-list{
+    max-height: 361px;
+    display: block;
+    overflow: auto;
+}
+h1{
+    color: white;
+}
+.outer-md-card{
+    max-width: 50%;
+    margin:auto;
+   max-height: calc(100vh - 90px);
+}
