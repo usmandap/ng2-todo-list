@@ -11,4 +11,8 @@ describe('todo-list App', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toEqual('Welcome to Todo List App');
   });
+
+  it('Test on navigation', () => {
+    page.testNavigation();
+  });
 });

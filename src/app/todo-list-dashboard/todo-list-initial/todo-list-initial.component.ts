@@ -5,8 +5,8 @@ import { Component } from '@angular/core'
   styleUrls: ['todo-list-initial.component.scss'],
   template: `
   <div class="init-view">
-  <a  [routerLink]="['/dialog']">Click here to start</a>
-  <h1>Welcome to Todo List App</h1></div>
+  <a class="init-route" [routerLink]="['/dialog']">Click here to start</a>
+  <h1 class="init-title">Welcome to Todo List App</h1></div>
 `
 
 })
