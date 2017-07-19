@@ -1,0 +1,32 @@
+<div class="init-login-view">
+  <md-card>
+    <md-card-title>Login</md-card-title>
+    <md-card-content>
+      <div>
+        <form [formGroup]="form" novalidate (ngSubmit)="login(form)">
+          <md-input-container class="example-full-width">
+            <input type="text" mdInput placeholder="Email" formControlName="email">
+            <md-error *ngIf="form.controls.email.hasError('email')">
+              Please enter a valid email address
+            </md-error>
+            <md-error *ngIf="form.controls.email.hasError('required')">
+              Email is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+          <md-input-container class="example-full-width">
+            <input type="password" mdInput placeholder="Password" formControlName="password">
+            <md-error *ngIf="form.controls.password.hasError('minlength')">
+              Password length should atleast 5 characters
+            </md-error>
+            <md-error *ngIf="form.controls.password.hasError('required')">
+              Password is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+          <button md-button md-raised-button type="submit" [disabled]="form.invalid">Login</button>
+          <button md-button (click)="registerForm()">Register</button>
+        </form>
+      </div>
+
+    </md-card-content>
+  </md-card>
+</div>

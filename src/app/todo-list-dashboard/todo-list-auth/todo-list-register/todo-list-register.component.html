@@ -1,0 +1,46 @@
+<div class="init-register-view">
+  <md-card>
+    <md-card-title>Register</md-card-title>
+    <md-card-content>
+      <div>
+        <form [formGroup]="form" novalidate (ngSubmit)="register(form)">
+          <md-input-container class="example-full-width">
+            <input type="text" mdInput placeholder="firstname" formControlName="firstname">
+            <md-error *ngIf="form.controls.firstname.hasError('minlength')">
+              Firstname length should be atleast 5 characters
+            </md-error>
+            <md-error *ngIf="form.controls.firstname.hasError('required')">
+              Firstname is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+          <md-input-container class="example-full-width">
+            <input type="text" mdInput placeholder="lastname" formControlName="lastname">
+          </md-input-container>
+          <md-input-container class="example-full-width">
+            <input type="text" mdInput placeholder="Email" formControlName="email">
+            <md-error *ngIf="form.controls.email.hasError('email')">
+              Please enter a valid email address
+            </md-error>
+            <md-error *ngIf="form.controls.email.hasError('required')">
+              Email is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+          <md-input-container class="example-full-width">
+            <input type="password" mdInput placeholder="Password" formControlName="password">
+            <md-error *ngIf="form.controls.password.hasError('minlength')">
+              Password length be should atleast 5 characters
+            </md-error>
+            <md-error *ngIf="form.controls.password.hasError('required')">
+              Password is <strong>required</strong>
+            </md-error>
+          </md-input-container>
+          <md-input-container class="example-full-width">
+            <input type="number" mdInput placeholder="phone" formControlName="phone">
+          </md-input-container>
+          <button md-button md-raised-button type="submit" [disabled]="form.invalid">Submit</button>
+          <button md-button (click)="loginForm()">Login</button>
+        </form>
+      </div>
+    </md-card-content>
+  </md-card>
+</div>

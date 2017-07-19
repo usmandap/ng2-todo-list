@@ -11,7 +11,9 @@ import { environment } from '../environments/todo-list-environment';
 import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dashboard.component'
 import { TodoListDetailModule } from './todo-list-dashboard/todo-list-detail/todo-list-detail.module'
 import { TodoListCustomMaterialModule } from './todo-list-dashboard/todo-list-custom-material.module'
-import {TodoListInitialModule} from './todo-list-dashboard/todo-list-initial/todo-list-initial.module'
+import {TodoListAuthModule} from './todo-list-dashboard/todo-list-auth/todo-list-auth.module'
+import { ToasterModule } from 'angular2-toaster';
+
 
 import { routing } from './todo-list-dashboard/todo-list.routes'
 
@@ -32,7 +34,8 @@ import { AppComponent } from './app.component';
     AngularFireDatabaseModule,
     TodoListCustomMaterialModule,
     TodoListDetailModule,
-    TodoListInitialModule
+    TodoListAuthModule,
+    ToasterModule
   ],
   exports: [TodoListDashboardComponent],
   providers: [],
