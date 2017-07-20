@@ -20,18 +20,14 @@ export class TodoListLoginComponent implements OnInit {
   ngOnInit() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
   login(form) {
     console.log(form.value);
-    let user;
-    user = this.todoauthservice.loginUser(form.value);
-    if (user) {
-      this.toasterService.pop('success', 'Logged In', 'User logged in successfully');
-    }
-    console.log(user);
+    this.todoauthservice.Login(form.value);
+
   }
   registerForm() {
     this.router.navigate(['/register']);

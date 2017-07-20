@@ -22,17 +22,13 @@ export class TodoListRegisterComponent implements OnInit {
       firstname: ['', [Validators.required, Validators.minLength(5)]],
       lastname: [''],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       phone: ['']
     });
   }
   register(form) {
     console.log(form.value);
-    let userRegistered = false;
-    userRegistered = this.todoauthservice.registerUser(form.value);
-    if (userRegistered) {
-      this.toasterService.pop('success', 'Registered', 'User Registered successfully');
-    }
+    this.todoauthservice.Register(form.value);
   }
   loginForm() {
     this.router.navigate(['/login']);

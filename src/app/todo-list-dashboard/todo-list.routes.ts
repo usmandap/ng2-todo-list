@@ -7,7 +7,7 @@ import { TodoAuthService } from './todo-list-auth/todo-list-auth.service';
 
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'list', pathMatch: 'full' },
   // Main Routes
   { path: 'login', component: TodoListLoginComponent },
   { path: 'register', component: TodoListRegisterComponent },

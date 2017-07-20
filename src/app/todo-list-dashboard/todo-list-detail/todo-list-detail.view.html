@@ -1,5 +1,6 @@
-<a [routerLink]="['/']">Back</a>
+<button class="logout-btn" md-button md-raised-button (click)="logout()">Logout</button>
 <md-card color="primary" class="outer-md-card">
+  <h1 class="title-name">Welcome {{loggedInUser?.displayName}}</h1>
   <md-card-content>
     <md-card-title>All Tasks</md-card-title>
     <md-input-container class="example-full-width">

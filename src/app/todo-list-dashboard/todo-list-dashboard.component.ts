@@ -1,11 +1,11 @@
 import { Component } from '@angular/core'
+import { TodoAuthService } from './todo-list-auth/todo-list-auth.service'
 
 @Component({
     selector: 'todo-list-dashboard',
     styleUrls: ['todo-list-dashboard.component.scss'],
     template: `
     <div><md-toolbar color="primary">Todo List
-    <a><button md-button md-raised-button>Logout</button></a>
     </md-toolbar>
     <toaster-container></toaster-container>
     <router-outlet></router-outlet></div>
@@ -13,4 +13,11 @@ import { Component } from '@angular/core'
 
 })
 
-export class TodoListDashboardComponent { }
+export class TodoListDashboardComponent {
+    constructor(private todoauthservice: TodoAuthService) {
+    }
+
+    logout() {
+        this.todoauthservice.logoutUser();
+    }
+}

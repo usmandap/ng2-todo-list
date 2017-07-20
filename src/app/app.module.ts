@@ -11,13 +11,15 @@ import { environment } from '../environments/todo-list-environment';
 import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dashboard.component'
 import { TodoListDetailModule } from './todo-list-dashboard/todo-list-detail/todo-list-detail.module'
 import { TodoListCustomMaterialModule } from './todo-list-dashboard/todo-list-custom-material.module'
-import {TodoListAuthModule} from './todo-list-dashboard/todo-list-auth/todo-list-auth.module'
+import { TodoListAuthModule } from './todo-list-dashboard/todo-list-auth/todo-list-auth.module'
 import { ToasterModule } from 'angular2-toaster';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 import { routing } from './todo-list-dashboard/todo-list.routes'
 
 import { AppComponent } from './app.component';
+import { TodoAuthService } from 'app/todo-list-dashboard/todo-list-auth/todo-list-auth.service';
 
 @NgModule({
   declarations: [
@@ -35,10 +37,10 @@ import { AppComponent } from './app.component';
     TodoListCustomMaterialModule,
     TodoListDetailModule,
     TodoListAuthModule,
-    ToasterModule
+    ToasterModule,
   ],
   exports: [TodoListDashboardComponent],
-  providers: [],
+  providers: [TodoAuthService, { provide: LocationStrategy, useClass: HashLocationStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

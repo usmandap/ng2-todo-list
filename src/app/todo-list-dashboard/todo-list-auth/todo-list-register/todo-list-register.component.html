@@ -28,7 +28,7 @@
           <md-input-container class="example-full-width">
             <input type="password" mdInput placeholder="Password" formControlName="password">
             <md-error *ngIf="form.controls.password.hasError('minlength')">
-              Password length be should atleast 5 characters
+              Password length be should atleast 6 characters
             </md-error>
             <md-error *ngIf="form.controls.password.hasError('required')">
               Password is <strong>required</strong>

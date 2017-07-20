@@ -6,6 +6,8 @@ import { TodoListCustomMaterialModule } from '../todo-list-custom-material.modul
 import { ReactiveFormsModule } from '@angular/forms';
 import { TodoAuthService } from './todo-list-auth.service';
 import { TodoListRegisterComponent } from './todo-list-register/todo-list-register.component';
+import { TodoService } from '../todo-list-detail/todo-list-detail.service';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @NgModule({
     imports: [
@@ -15,6 +17,6 @@ import { TodoListRegisterComponent } from './todo-list-register/todo-list-regist
         ReactiveFormsModule
     ],
     declarations: [TodoListRegisterComponent, TodoListLoginComponent],
-    providers: [TodoAuthService]
+    providers: [TodoService, AngularFireAuth, TodoAuthService]
 })
 export class TodoListAuthModule { }

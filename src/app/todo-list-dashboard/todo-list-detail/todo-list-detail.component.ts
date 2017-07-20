@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { TodoService } from './todo-list-detail.service'
 import { FirebaseListObservable } from 'angularfire2/database';
+import { Subscription } from 'rxjs/Subscription';
+import { TodoAuthService } from '../todo-list-auth/todo-list-auth.service'
 
 
 interface Task {
@@ -22,8 +24,11 @@ export class TodoListDetailComponent implements OnInit {
     public description;
     public selectedIndex;
     $tasks: FirebaseListObservable<Task[]>;
+    private sub: Subscription;
+    subscription: Subscription;
+    loggedInUser;
 
-    constructor(private todoitems: TodoService) { }
+    constructor(private todoitems: TodoService, private todoauthservice: TodoAuthService) { }
     /**
   * @author Usman Hussain
   * This functions saves new task via user input.
@@ -72,9 +77,18 @@ export class TodoListDetailComponent implements OnInit {
     getUnfinishedTasks() {
         return this.tasks.filter((task) => !task.status).length;
     }
+    logout() {
+        this.sub.unsubscribe();
+        this.subscription.unsubscribe();
+        this.todoauthservice.logoutUser();
+    }
     ngOnInit() {
         this.selectedIndex = 0;
-        this.todoitems.fetchItems().subscribe((todoitems) => {
+        console.log();
+        this.subscription = this.todoauthservice.getUser().subscribe((user) => {
+        this.loggedInUser = user;
+    })
+        this.sub = this.todoitems.fetchItems().subscribe((todoitems) => {
             console.log('items', todoitems);
             this.tasks = todoitems;
             this.remainingTasks = this.getUnfinishedTasks();
