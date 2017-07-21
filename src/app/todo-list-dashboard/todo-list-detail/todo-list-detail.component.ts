@@ -28,7 +28,9 @@ export class TodoListDetailComponent implements OnInit {
     subscription: Subscription;
     loggedInUser;
     filterTag = 'all';
-    noTag: Boolean
+    noTag: Boolean;
+    selectable;
+    removable;
     tags = [
         'personal', 'work', 'shopping', 'errands', 'movies to watch'
     ]
@@ -47,8 +49,9 @@ export class TodoListDetailComponent implements OnInit {
             description: task,
             id: this.tasks.length,
             status: false,
-            tag: this.filterTag === 'all' ? 'notag' : this.filterTag
+            tag: []
         }
+        data.tag.push(this.filterTag === 'all' ? 'notag' : this.filterTag)
         this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
     }
@@ -71,7 +74,7 @@ export class TodoListDetailComponent implements OnInit {
    * @return void
    */
     taskStatusUpdate(task, tag) {
-        task.tag = tag;
+        console.log(task);
         this.$tasks.update(task.$key, task);
         this.remainingTasks = this.getUnfinishedTasks();
     }
@@ -90,6 +93,7 @@ export class TodoListDetailComponent implements OnInit {
         this.todoauthservice.logoutUser();
     }
     ngOnInit() {
+        this.selectable = true;
         this.selectedIndex = 0;
         this.noTag = false;
         console.log();

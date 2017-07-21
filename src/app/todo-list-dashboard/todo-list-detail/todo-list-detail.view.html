@@ -29,18 +29,17 @@
         <md-list-item *ngFor="let task of tasks | filteredTasks: task : selectedIndex : filterTag : noTag">
           <md-card md-line>
             <md-card-content>
-              <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task,task.tag)></md-checkbox>
+              <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task)></md-checkbox>
               <p class="item text-padding">{{task.description}}</p>
               <div class="button-row">
                 <button class="item" md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>
               </div>
               <div>
-                <button class="tag-btn" md-button [mdMenuTriggerFor]="menu">Tag: {{task.tag}}</button>
-                <md-menu #menu="mdMenu">
-                  <div *ngFor="let tag of tags">
-                    <button md-menu-item *ngIf="!(tag == task.tag)" (click)="taskStatusUpdate(task,tag)">{{tag}}</button>
+                  <div>
+                    <md-select [(ngModel)]="task.tag" multiple (ngModelChange)=taskStatusUpdate(task)>
+                      <md-option *ngFor="let tag of tags" [value]="tag">{{ tag }}</md-option>
+                    </md-select>
                   </div>
-                </md-menu>
               </div>
             </md-card-content>
           </md-card>
