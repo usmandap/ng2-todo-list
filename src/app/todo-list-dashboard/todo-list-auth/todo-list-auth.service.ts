@@ -30,15 +30,13 @@ export class TodoAuthService implements CanActivate {
             if (user) {
                 this.currentUser = user
             }
-
-
         });
     }
     /**
   * @author Usman Hussain
   * This functions provides auth for login user.
   * Simple service function to provide user application access
-  * @return boolean
+  * @return firebase.user
   */
     Login(user) {
         this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password).then(
@@ -57,7 +55,7 @@ export class TodoAuthService implements CanActivate {
 * @author Usman Hussain
 * This functions provides auth for Register user.
 * Simple service function to save user details
-* @return boolean
+* @return firebase.user
 */
     Register(user) {
         this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(

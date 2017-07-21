@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { TodoService } from './todo-list-detail.service'
 import { FirebaseListObservable } from 'angularfire2/database';
 import { Subscription } from 'rxjs/Subscription';
-import { TodoAuthService } from '../todo-list-auth/todo-list-auth.service'
+import { TodoAuthService } from '../todo-list-auth/todo-list-auth.service';
 
 
 interface Task {
@@ -15,11 +15,11 @@ interface Task {
     selector: 'todo-list-detail',
     styleUrls: ['todo-list-detail.component.scss'],
     templateUrl: './todo-list-detail.view.html'
-
 })
 
 export class TodoListDetailComponent implements OnInit {
     tasks: Task[];
+    task: Task[];
     remainingTasks: number;
     public description;
     public selectedIndex;
@@ -27,6 +27,11 @@ export class TodoListDetailComponent implements OnInit {
     private sub: Subscription;
     subscription: Subscription;
     loggedInUser;
+    filterTag = 'all';
+    noTag: Boolean
+    tags = [
+        'personal', 'work', 'shopping', 'errands', 'movies to watch'
+    ]
 
     constructor(private todoitems: TodoService, private todoauthservice: TodoAuthService) { }
     /**
@@ -41,7 +46,8 @@ export class TodoListDetailComponent implements OnInit {
         const data = {
             description: task,
             id: this.tasks.length,
-            status: false
+            status: false,
+            tag: this.filterTag === 'all' ? 'notag' : this.filterTag
         }
         this.$tasks.push(data);
         this.remainingTasks = this.getUnfinishedTasks();
@@ -64,7 +70,8 @@ export class TodoListDetailComponent implements OnInit {
    * @param task {Object}
    * @return void
    */
-    taskStatusUpdate(task) {
+    taskStatusUpdate(task, tag) {
+        task.tag = tag;
         this.$tasks.update(task.$key, task);
         this.remainingTasks = this.getUnfinishedTasks();
     }
@@ -84,10 +91,11 @@ export class TodoListDetailComponent implements OnInit {
     }
     ngOnInit() {
         this.selectedIndex = 0;
+        this.noTag = false;
         console.log();
         this.subscription = this.todoauthservice.getUser().subscribe((user) => {
-        this.loggedInUser = user;
-    })
+            this.loggedInUser = user;
+        })
         this.sub = this.todoitems.fetchItems().subscribe((todoitems) => {
             console.log('items', todoitems);
             this.tasks = todoitems;
@@ -95,5 +103,10 @@ export class TodoListDetailComponent implements OnInit {
         });
         this.$tasks = this.todoitems.fetchItems();
 
+    }
+    selectedItem(e) {
+        console.log(e);
+        this.filterTag = e;
+        this.remainingTasks = this.getUnfinishedTasks();
     }
 }

@@ -24,6 +24,7 @@ h1{
     max-width: 50%;
     margin:auto;
    max-height: calc(100vh - 90px);
+   display: inline-block;
 }
 .logout-btn {
     margin-left: 92%;
@@ -32,4 +33,17 @@ h1{
 }
 .title-name{
    color: #69f0ae;
+}
+.tag-list-card{
+        display: inline-block;
+    float: left;
+    margin-top: 10%;
+    margin-right: 2%;
+}
+.container-cards{
+    margin-left: 25%;
+}
+.tag-btn {
+        margin-left: 9%;
+        cursor: default;
 }
