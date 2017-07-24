@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 
 import { AppComponent } from './app.component';
-import { TodoListDashboardComponent } from './todo-list-dashboard/todo-list-dashboard.component'
+import { TodoListLayoutComponent } from './todo-list/todo-list-layout.component'
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

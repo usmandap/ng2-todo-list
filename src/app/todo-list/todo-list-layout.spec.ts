@@ -32,8 +32,8 @@ beforeEach(async(() => {
   })
     .compileComponents();  // compile template and css
 }));
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(TodoListDashboardComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(true).toBeTruthy(true);
-  }));
+it('should create the app', async(() => {
+  const fixture = TestBed.createComponent(TodoListDashboardComponent);
+  const app = fixture.debugElement.componentInstance;
+  expect(true).toBeTruthy(true);
+}));

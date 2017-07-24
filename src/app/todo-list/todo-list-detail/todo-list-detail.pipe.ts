@@ -13,33 +13,17 @@ export class TaskFilterPipe implements PipeTransform {
         } else if (index === 2) {
             filteredArray = value.filter((task) => task.status);
         }
-        if (arg2 === 'all') {
+        if (arg2 === 'All') {
             if (arg3) {
-                filteredArray = filteredArray.filter((task) => task.tag === 'notag');
+                // tslint:disable-next-line:triple-equals
+                filteredArray = filteredArray.filter((task) => task.tag == 'notag' || !(task.tag));
                 return filteredArray;
             }
             return filteredArray;
         } else {
-            // filteredArray = filteredArray.filter((task) => task.tag === arg2);
-
-            // filteredArray = filteredArray.forEach(element => {
-            //      element.tag.filter((tagfilter) => {
-            //         if (tagfilter === arg2) {
-            //             console.log(element);
-            //             newFilteredArray.push(element);
-            //         }
-            //     })
-            // });
-
-
             filteredArray = filteredArray.filter(item => {
                 return (item.tag || []).filter(tag => tag === arg2).length >= 1;
             });
-            // filteredArray = filteredArray.filter((task) => {
-            //      task.tag.filter((tagfilter) => {
-            //         return tagfilter === arg2
-            //     })
-            // })
             console.log(filteredArray);
             return filteredArray;
         }

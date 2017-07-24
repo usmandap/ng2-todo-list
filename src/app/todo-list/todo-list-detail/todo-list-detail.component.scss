@@ -7,13 +7,12 @@
 .button-row {
  display: inline-block;
  float: right;
-
 }
 .text-padding{
     padding-left: 30px;
 }
 md-list{
-    max-height: 361px;
+    height: 234px;
     display: block;
     overflow: auto;
 }
@@ -26,11 +25,6 @@ h1{
    max-height: calc(100vh - 90px);
    display: inline-block;
 }
-.logout-btn {
-    margin-left: 92%;
-    margin-top: 1%;
-    color: white;
-}
 .title-name{
    color: #69f0ae;
 }
@@ -42,8 +36,19 @@ h1{
 }
 .container-cards{
     margin-left: 25%;
+    margin-top: 5%
 }
 .tag-btn {
-        margin-left: 9%;
-        cursor: default;
+    margin-left: 9%;
+    cursor: default;
+}
+.tag-select{
+    width: 100%;
+}
+.select-tag-menu-item{
+    color: #69f0ae ;
+   // background: #303030 ;
+}
+.tag-cursor{
+    cursor:pointer;
 }
