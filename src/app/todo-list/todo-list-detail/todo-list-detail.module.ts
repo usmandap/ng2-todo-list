@@ -5,7 +5,11 @@ import { TaskFilterPipe } from './todo-list-detail.pipe'
 import { TodoService } from './todo-list-detail.service'
 import { TodoListCustomMaterialModule } from '../todo-list-custom-material.module'
 import { FormsModule } from '@angular/forms';
-import { routing } from '../todo-list.routes'
+import { routing } from './todo-list-detail-routing';
+import { TagInputModule } from 'ng2-tag-input';
+import { TodoListTasksComponent } from './todo-list-tasks/todo-list-tasks.component';
+import { TodoListTagsComponent } from './todo-list-tags/todo-list-tags.component';
+
 
 
 
@@ -18,7 +22,9 @@ import { routing } from '../todo-list.routes'
     ],
     declarations: [
         TodoListDetailComponent,
-        TaskFilterPipe
+        TaskFilterPipe,
+        TodoListTasksComponent,
+        TodoListTagsComponent
     ],
     providers: [TodoService]
 })

@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
         <toaster-container></toaster-container>
         <router-outlet></router-outlet>
     </div>
-`
+    `,
 
 })
 

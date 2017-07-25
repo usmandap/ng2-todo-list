@@ -28,6 +28,7 @@ export class TodoListRegisterComponent implements OnInit {
       phone: ['']
     });
   }
+  
   register(form) {
     console.log(form.value);
     this.spinStatus = true;

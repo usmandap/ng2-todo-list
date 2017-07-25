@@ -9,7 +9,7 @@ interface Task {
     id: number,
     description: string,
     status: boolean,
-    tags?: [String]
+    tags?: string[]
 }
 
 @Component({
@@ -60,6 +60,7 @@ export class TodoListDetailComponent implements OnInit {
     * @return void
     */
     deleteTask(task) {
+        console.log(task);
         this.$tasks.remove(task);
     }
         /**
@@ -97,7 +98,7 @@ export class TodoListDetailComponent implements OnInit {
         this.selectedIndex = 0;
         this.noTag = false;
         console.log();
-        this.todoauthservice.getUser()
+        this.todoauthservice.getUser().share()
         .first()
         .subscribe((user) => {
             this.loggedInUser = user;

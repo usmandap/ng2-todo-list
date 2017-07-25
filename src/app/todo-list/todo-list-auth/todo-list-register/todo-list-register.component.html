@@ -5,7 +5,11 @@
       <div>
         <form [formGroup]="form" novalidate (ngSubmit)="register(form)">
           <md-input-container class="example-full-width">
-            <input type="text" mdInput placeholder="firstname" formControlName="firstname">
+            <input 
+              type="text" 
+              mdInput 
+              placeholder="firstname" 
+              formControlName="firstname">
             <md-error *ngIf="form.controls.firstname.hasError('minlength')">
               Firstname length should be atleast 5 characters
             </md-error>
@@ -39,7 +43,7 @@
           </md-input-container>
           <button md-button md-raised-button type="submit" [disabled]="form.invalid">Submit</button>
           <!-- <button md-button (click)="loginForm()">Login</button> -->
-        <p>Already have an account? <a [routerLink]="['/login']">Login</a></p>
+        <p>Already have an account? <a [routerLink]="['/auth/login']">Login</a></p>
         </form>
       </div>
       <md-spinner *ngIf="spinStatus"></md-spinner>

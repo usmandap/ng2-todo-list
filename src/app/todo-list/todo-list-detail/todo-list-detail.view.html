@@ -1,15 +1,7 @@
 <div class="container-cards">
   <md-card class="tag-list-card">
     <md-card-content>
-      <md-list>
-        <md-list-item (click)=selectedItem($event.target.innerText) [ngClass]="{'select-tag-menu-item': filterTag == 'All'}">
-          <p md-line class="tag-cursor">All</p>
-        </md-list-item>
-        <md-list-item (click)=selectedItem($event.target.innerText) *ngFor="let tag of tags" [ngClass]="{'select-tag-menu-item': filterTag == tag}">
-          <!-- <md-icon md-list-icon>folder</md-icon> -->
-          <p md-line class="tag-cursor">{{tag}}</p>
-        </md-list-item>
-      </md-list>
+      <app-todo-list-tags [tags]=tags (selectedParentTag)="selectedItem($event)"></app-todo-list-tags>
     </md-card-content>
   </md-card>
   <md-card color="primary" class="outer-md-card">
@@ -28,24 +20,7 @@
         <div class="text-center" *ngIf="(tasks | filteredTasks: task : selectedIndex : filterTag : noTag).length < 1">
           <h2>No Tasks to show</h2>
         </div>
-        <md-list-item *ngFor="let task of tasks | filteredTasks: task : selectedIndex : filterTag : noTag">
-          <md-card md-line>
-            <md-card-content>
-              <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task)></md-checkbox>
-              <p class="item text-padding">{{task.description}}</p>
-              <div class="button-row">
-                <button class="item" md-mini-fab (click)=deleteTask(task)><md-icon>delete</md-icon></button>
-              </div>
-              <div>
-                  <div>
-                    <md-select class="tag-select" [(ngModel)]="task.tag" multiple (ngModelChange)=taskStatusUpdate(task)>
-                      <md-option *ngFor="let tag of tags" [value]="tag">{{ tag }}</md-option>
-                    </md-select>
-                  </div>
-              </div>
-            </md-card-content>
-          </md-card>
-        </md-list-item>
+        <app-todo-list-tasks [tags]="tags" [task]="task" (updateParentTaskStatus)="taskStatusUpdate($event)" (deleteParentTask)="deleteTask($event)" *ngFor="let task of tasks | filteredTasks: task : selectedIndex : filterTag : noTag"></app-todo-list-tasks>
       </md-list>
       <p [hidden]="remainingTasks == 0">Total Remaining Task<span *ngIf="remainingTasks > 1">s</span> {{remainingTasks}}</p>
       <p *ngIf="remainingTasks == 0">No Remaining Tasks</p>

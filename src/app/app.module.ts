@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/todo-list-environment';
 
+import { TagInputModule } from 'ng2-tag-input';
 import { TodoListLayoutComponent } from './todo-list/todo-list-layout.component'
 import { TodoListDetailModule } from './todo-list/todo-list-detail/todo-list-detail.module'
 import { TodoListCustomMaterialModule } from './todo-list/todo-list-custom-material.module'
@@ -32,12 +33,13 @@ import { TodoAuthService } from 'app/todo-list/todo-list-auth/todo-list-auth.ser
     routing,
     FormsModule,
     BrowserAnimationsModule,
+    TagInputModule,
     AngularFireModule.initializeApp(environment.firebase, 'todo-list'),
     AngularFireDatabaseModule,
     TodoListCustomMaterialModule,
     TodoListDetailModule,
     TodoListAuthModule,
-    ToasterModule,
+    ToasterModule
   ],
   exports: [TodoListLayoutComponent],
   providers: [TodoAuthService, { provide: LocationStrategy, useClass: HashLocationStrategy }],

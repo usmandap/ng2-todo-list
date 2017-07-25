@@ -1,0 +1,9 @@
+<md-list>
+        <md-list-item (click)=selectedItem($event.target.innerText) [ngClass]="{'select-tag-menu-item': filterTag == 'All'}">
+          <p md-line class="tag-cursor">All</p>
+        </md-list-item>
+        <md-list-item (click)=selectedItem($event.target.innerText) *ngFor="let tag of tags" [ngClass]="{'select-tag-menu-item': filterTag == tag}">
+          <!-- <md-icon md-list-icon>folder</md-icon> -->
+          <p md-line class="tag-cursor">{{tag}}</p>
+        </md-list-item>
+      </md-list>

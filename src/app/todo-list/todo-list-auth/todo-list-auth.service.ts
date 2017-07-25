@@ -39,7 +39,7 @@ export class TodoAuthService implements CanActivate {
   * @return firebase.user
   */
     Login(user) {
-        return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+        return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
     }
     /**
 * @author Usman Hussain
@@ -48,7 +48,7 @@ export class TodoAuthService implements CanActivate {
 * @return firebase.user
 */
     Register(user) {
-       return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
+       return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
     }
     /**
 * @author Usman Hussain
@@ -74,7 +74,7 @@ export class TodoAuthService implements CanActivate {
             .map(authState => !!authState)
             .do(authenticated => {
                 if (!authenticated) {
-                    this.router.navigate(['/login']);
+                    this.router.navigate(['/auth/login']);
                 }
             });
     }
