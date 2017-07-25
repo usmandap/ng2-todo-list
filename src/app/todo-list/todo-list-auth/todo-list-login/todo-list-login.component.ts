@@ -11,10 +11,9 @@ import { Router } from '@angular/router';
 })
 export class TodoListLoginComponent implements OnInit {
   form: FormGroup;
-  private toasterService: ToasterService;
+  spinStatus = false;
   constructor(private fb: FormBuilder, private todoauthservice: TodoAuthService,
-    toasterService: ToasterService, private router: Router) {
-    this.toasterService = toasterService;
+    private toasterService: ToasterService, private router: Router) {
   }
 
   ngOnInit() {
@@ -25,12 +24,21 @@ export class TodoListLoginComponent implements OnInit {
   }
 
   login(form) {
+    this.spinStatus = true;
     console.log(form.value);
-    this.todoauthservice.Login(form.value);
+    this.todoauthservice.Login(form.value).then(
+            (success) => {
+                console.log(success);
+                this.toasterService.pop('success', 'Logged In', success.displayName + ' logged in successfully');
+                this.spinStatus = false;
+                this.router.navigate(['/list'])
+            }).catch(
+            (err) => {
+                console.log(err);
+                this.toasterService.pop('error', err.name, err.message);
+                // this.error = err;
+            });
 
-  }
-  registerForm() {
-    this.router.navigate(['/register']);
   }
 
 }

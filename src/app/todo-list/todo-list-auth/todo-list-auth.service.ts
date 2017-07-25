@@ -39,17 +39,7 @@ export class TodoAuthService implements CanActivate {
   * @return firebase.user
   */
     Login(user) {
-        this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password).then(
-            (success) => {
-                console.log(success);
-                this.toasterService.pop('success', 'Logged In', success.displayName + ' logged in successfully');
-                this.router.navigate(['/list'])
-            }).catch(
-            (err) => {
-                console.log(err);
-                this.toasterService.pop('error', err.name, err.message);
-                // this.error = err;
-            })
+        return this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
     }
     /**
 * @author Usman Hussain
@@ -58,25 +48,7 @@ export class TodoAuthService implements CanActivate {
 * @return firebase.user
 */
     Register(user) {
-        this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then(
-            (success) => {
-                console.log(success);
-                this.afAuth.auth.onAuthStateChanged(((loggedinuser) => {
-                    if (this.currentUser.uid === loggedinuser.uid || loggedinuser === null || this.currentUser.uid === null) {
-                        loggedinuser.updateProfile({
-                            displayName: user.firstname + ' ' + user.lastname,
-                            phoneNumber: user.phone
-                        })
-                    }
-                }))
-                this.router.navigate(['/list'])
-            }).catch(
-            (err) => {
-                console.log(err);
-                this.toasterService.pop('error', err.name, err.message);
-                // this.error = err;
-            })
-
+       return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
     }
     /**
 * @author Usman Hussain
@@ -111,5 +83,15 @@ export class TodoAuthService implements CanActivate {
             return user;
         })
 
+    }
+    saveUserDetails(data) {
+        this.afAuth.auth.onAuthStateChanged(((loggedinuser) => {
+            if (this.currentUser.uid === loggedinuser.uid || loggedinuser === null || this.currentUser.uid === null) {
+                loggedinuser.updateProfile({
+                    displayName: data.firstname + ' ' + data.lastname,
+                    phoneNumber: data.phone
+                })
+            }
+        }))
     }
 }

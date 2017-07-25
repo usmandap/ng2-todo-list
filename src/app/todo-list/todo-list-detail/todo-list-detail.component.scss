@@ -2,11 +2,11 @@
     display: block
 }
 .item { 
- display: inline-block;
+    display: inline-block;
 }
 .button-row {
- display: inline-block;
- float: right;
+    display: inline-block;
+    float: right;
 }
 .text-padding{
     padding-left: 30px;
@@ -22,14 +22,14 @@ h1{
 .outer-md-card{
     max-width: 50%;
     margin:auto;
-   max-height: calc(100vh - 90px);
-   display: inline-block;
+    max-height: calc(100vh - 90px);
+    display: inline-block;
 }
 .title-name{
    color: #69f0ae;
 }
 .tag-list-card{
-        display: inline-block;
+    display: inline-block;
     float: left;
     margin-top: 10%;
     margin-right: 2%;
@@ -51,4 +51,8 @@ h1{
 }
 .tag-cursor{
     cursor:pointer;
+}
+.text-center{
+    margin-top: 25%;
+    margin-left: 25%;
 }

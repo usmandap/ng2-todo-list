@@ -38,9 +38,11 @@
             <input type="number" mdInput placeholder="phone" formControlName="phone">
           </md-input-container>
           <button md-button md-raised-button type="submit" [disabled]="form.invalid">Submit</button>
-          <button md-button (click)="loginForm()">Login</button>
+          <!-- <button md-button (click)="loginForm()">Login</button> -->
+        <p>Already have an account? <a [routerLink]="['/login']">Login</a></p>
         </form>
       </div>
+      <md-spinner *ngIf="spinStatus"></md-spinner>
     </md-card-content>
   </md-card>
 </div>
