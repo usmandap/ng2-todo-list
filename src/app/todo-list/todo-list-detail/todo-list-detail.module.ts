@@ -6,9 +6,10 @@ import { TodoService } from './todo-list-detail.service'
 import { TodoListCustomMaterialModule } from '../todo-list-custom-material.module'
 import { FormsModule } from '@angular/forms';
 import { routing } from './todo-list-detail-routing';
-import { TagInputModule } from 'ng2-tag-input';
+import { TagInputModule } from 'ngx-chips';
 import { TodoListTasksComponent } from './todo-list-tasks/todo-list-tasks.component';
 import { TodoListTagsComponent } from './todo-list-tags/todo-list-tags.component';
+
 
 
 
@@ -18,7 +19,8 @@ import { TodoListTagsComponent } from './todo-list-tags/todo-list-tags.component
         CommonModule,
         FormsModule,
         routing,
-        TodoListCustomMaterialModule
+        TodoListCustomMaterialModule,
+        TagInputModule
     ],
     declarations: [
         TodoListDetailComponent,

@@ -22,7 +22,7 @@ export class TodoListDetailComponent implements OnInit {
     tasks: Task[] = [];
     task: Task;
     // remainingTasks: number;
-    description;
+    description: string;
     selectedIndex;
     $tasks: FirebaseListObservable<Task[]>;
     private sub: Subscription;
@@ -49,7 +49,7 @@ export class TodoListDetailComponent implements OnInit {
             status: false,
             tag: []
         }
-        data.tag.push(this.filterTag === 'All' ? 'notag' : this.filterTag);
+        data.tag.push(this.filterTag === 'All' ? [] : this.filterTag);
         this.$tasks.push(data);
     }
         /**
@@ -99,10 +99,10 @@ export class TodoListDetailComponent implements OnInit {
         this.noTag = false;
         console.log();
         this.todoauthservice.getUser().share()
-        .first()
-        .subscribe((user) => {
-            this.loggedInUser = user;
-        })
+            .first()
+            .subscribe((user) => {
+                this.loggedInUser = user;
+            })
         this.sub = this.todoitems.fetchItems().subscribe((todoitems) => {
             console.log('items', todoitems);
             this.tasks = todoitems;

@@ -31,10 +31,7 @@ h1{
 .tag-select{
     width: 100%;
 }
-.select-tag-menu-item{
-    color: #69f0ae ;
-   // background: #303030 ;
-}
+
 .tag-cursor{
     cursor:pointer;
 }
@@ -42,7 +39,9 @@ h1{
     margin-top: 25%;
     margin-left: 25%;
 }
-    .tag-chip-input{
-    background: #424242;
-
+md-list{
+    height: 234px;
+    display: block;
+    overflow: auto;
 }
+

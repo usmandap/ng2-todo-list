@@ -8,8 +8,8 @@
               </div>
               <div>
                 <div>
-                   <tag-input [(ngModel)]="task.tag" (ngModelChange)=taskStatusUpdate(task) [modelAsStrings]="true" [inputClass]="tag-chip-input" [onlyFromAutocomplete]="true">
-                    <tag-input-dropdown  class="tag-chip-input" [autocompleteItems]="tags" [showDropdownIfEmpty]="true">
+                   <tag-input [(ngModel)]="task.tag" (ngModelChange)=taskStatusUpdate(task) [modelAsStrings]="true" [onlyFromAutocomplete]="true">
+                    <tag-input-dropdown mdInput [autocompleteItems]="tags" [showDropdownIfEmpty]="true">
                     </tag-input-dropdown>
                   </tag-input> 
                 </div>

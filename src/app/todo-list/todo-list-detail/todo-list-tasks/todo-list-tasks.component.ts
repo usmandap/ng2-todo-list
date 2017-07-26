@@ -6,6 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./todo-list-tasks.component.scss']
 })
 export class TodoListTasksComponent implements OnInit {
+  tag: String[]
 
   @Output()
   deleteParentTask: EventEmitter<any> = new EventEmitter<any>();

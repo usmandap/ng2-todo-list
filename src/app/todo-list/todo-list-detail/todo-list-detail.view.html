@@ -1,7 +1,7 @@
 <div class="container-cards">
   <md-card class="tag-list-card">
     <md-card-content>
-      <app-todo-list-tags [tags]=tags (selectedParentTag)="selectedItem($event)"></app-todo-list-tags>
+      <app-todo-list-tags [tags]=tags [filterTag]="filterTag" (selectedParentTag)="selectedItem($event)"></app-todo-list-tags>
     </md-card-content>
   </md-card>
   <md-card color="primary" class="outer-md-card">
