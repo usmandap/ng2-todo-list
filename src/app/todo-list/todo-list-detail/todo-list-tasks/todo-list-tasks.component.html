@@ -1,4 +1,4 @@
-<md-list-item >
+<md-list-item>
           <md-card md-line>
             <md-card-content>
               <md-checkbox class="item" [(ngModel)]="task.status" (ngModelChange)=taskStatusUpdate(task)></md-checkbox>
@@ -9,9 +9,9 @@
               <div>
                 <div>
                    <tag-input [(ngModel)]="task.tag" (ngModelChange)=taskStatusUpdate(task) [modelAsStrings]="true" [onlyFromAutocomplete]="true">
-                    <tag-input-dropdown mdInput [autocompleteItems]="tags" [showDropdownIfEmpty]="true">
+                    <tag-input-dropdown  [autocompleteItems]="tags" [showDropdownIfEmpty]="true">
                     </tag-input-dropdown>
-                  </tag-input> 
+                  </tag-input>
                 </div>
               </div>
             </md-card-content>
